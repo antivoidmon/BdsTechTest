@@ -22,7 +22,19 @@ namespace Bds.TechTest.Domain
 
             var searchEngineScrapes = 
                 _searchEnginesToScrape
-                    .Select(searchEngineScrapingServiceAgent => searchEngineScrapingServiceAgent.ScrapeSearchEngine(searchTerm))
+                    .Select(searchEngineScrapingServiceAgent =>
+                    {
+                        try
+                        {
+                            return searchEngineScrapingServiceAgent.ScrapeSearchEngine(searchTerm);
+                        }
+                        catch
+                        {
+                            // Just invoking safely... in reality we'd log here.
+                        }
+
+                        return Task.FromResult(new List<SearchEngineResultValueObject>().AsEnumerable());
+                    })
                     .ToList();
 
             var results = await Task.WhenAll(searchEngineScrapes);

@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Bds.TechTest.Domain;
 
@@ -12,13 +8,11 @@ namespace Bds.TechTest.WebApplication.Controllers
     [Route("[controller]")]
     public class SearchEngineResultsController : ControllerBase
     {
-        private readonly ILogger<SearchEngineResultsController> _logger;
         private readonly ISearchEngineScrapingService _searchEngineScrapingService;
 
-        public SearchEngineResultsController(ISearchEngineScrapingService searchEngineScrapingService, ILogger<SearchEngineResultsController> logger)
+        public SearchEngineResultsController(ISearchEngineScrapingService searchEngineScrapingService)
         {
             _searchEngineScrapingService = searchEngineScrapingService;
-            _logger = logger;
         }
 
         [HttpGet]
